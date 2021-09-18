@@ -20,7 +20,7 @@
 		46A4BFA426F3780300B42C77 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFA326F3780300B42C77 /* EditTodoViewController.swift */; };
 		46A4BFA726F3781000B42C77 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFA626F3781000B42C77 /* AddTodoViewController.swift */; };
 		46A4BFAA26F37D8700B42C77 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFA926F37D8700B42C77 /* Alert.swift */; };
-		46A4BFAD26F380D500B42C77 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFAC26F380D500B42C77 /* SignUp.swift */; };
+		46A4BFAD26F380D500B42C77 /* SetObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFAC26F380D500B42C77 /* SetObject.swift */; };
 		F899E113F2D10EC921C6E05C /* Pods_Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7845387807511585ED247439 /* Pods_Todo.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +41,7 @@
 		46A4BFA326F3780300B42C77 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		46A4BFA626F3781000B42C77 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
 		46A4BFA926F37D8700B42C77 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		46A4BFAC26F380D500B42C77 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		46A4BFAC26F380D500B42C77 /* SetObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObject.swift; sourceTree = "<group>"; };
 		5303F174BF05F58E415EF0A7 /* Pods-Todo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Todo.release.xcconfig"; path = "Target Support Files/Pods-Todo/Pods-Todo.release.xcconfig"; sourceTree = "<group>"; };
 		7845387807511585ED247439 /* Pods_Todo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Todo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -93,7 +93,7 @@
 				46A4BFA326F3780300B42C77 /* EditTodoViewController.swift */,
 				46A4BFA626F3781000B42C77 /* AddTodoViewController.swift */,
 				46A4BFA926F37D8700B42C77 /* Alert.swift */,
-				46A4BFAC26F380D500B42C77 /* SignUp.swift */,
+				46A4BFAC26F380D500B42C77 /* SetObject.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 				46A4BF9F26F377E400B42C77 /* SignInViewController.swift in Sources */,
 				46A4BF5A26F36F2B00B42C77 /* SceneDelegate.swift in Sources */,
 				46A4BFA126F377F700B42C77 /* ShowTodoViewController.swift in Sources */,
-				46A4BFAD26F380D500B42C77 /* SignUp.swift in Sources */,
+				46A4BFAD26F380D500B42C77 /* SetObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

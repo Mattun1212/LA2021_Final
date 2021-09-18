@@ -19,11 +19,16 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        
+        passwordTextField.isSecureTextEntry = true
+        
         LoginButton.isEnabled = false
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
     @IBAction func signIn(_ sender: Any) {
         guard let email = emailTextField.text,

@@ -1,5 +1,5 @@
 //
-//  SignUp.swift
+//  SetObject.swift
 //  Todo
 //
 //  Created by Koutaro Matsushita on 2021/09/16.
@@ -20,6 +20,7 @@ class DataObject: NSObject{
     var title: String?
     var timelimit: String?
     var detail: String?
+    var done: Bool?
     var id: String?
     
     init(document: QueryDocumentSnapshot) {
@@ -36,6 +37,7 @@ class DataObject: NSObject{
         self.title = data["title"] as? String
         self.timelimit = data["timelimit"] as? String
         self.detail = data["detail"] as? String
+        self.done = data["done"] as? Bool
         self.id = document.documentID
     }
 

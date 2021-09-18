@@ -36,8 +36,9 @@ class AddTodoViewController: UIViewController{
 
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(changeDate), for: .valueChanged)
         dateTextField.inputView = datePicker
-        
+
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))
         let spacelItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneDate))
@@ -47,14 +48,22 @@ class AddTodoViewController: UIViewController{
         dateTextField.inputAccessoryView = toolbar
     }
     
+    @objc func changeDate(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        dateTextField.text = "\(formatter.string(from: datePicker.date))"
+    }
 
+    
     @objc func doneDate() {
         dateTextField.endEditing(true)
         // 日付のフォーマット
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        dateTextField.text = "\(formatter.string(from: Date()))"
+        dateTextField.text = "\(formatter.string(from: datePicker.date))"
+        
         textFieldDidChangeSelection(dateTextField)
+        
     }
     
     @IBAction func save(_ sender: Any) {
@@ -62,7 +71,7 @@ class AddTodoViewController: UIViewController{
         if let titleText = titleTextField.text,
            let detailText = detailTextView.text,
            let dateText = dateTextField.text {
-            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "detail": detailText, "timelimit": dateText], merge: true)
+            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "detail": detailText, "timelimit": dateText, "done": false], merge: true)
         
         self.navigationController?.popViewController(animated: true)
         }

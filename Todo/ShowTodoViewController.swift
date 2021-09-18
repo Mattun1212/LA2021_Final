@@ -9,12 +9,12 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-class ShowTodoViewController: UIViewController, UITableViewDelegate {
+class ShowTodoViewController: UIViewController {
     let db = Firestore.firestore()
     
     let currentUser = Auth.auth().currentUser
     
-    var dataArray: [DataObject]!
+    var dataArray: [DataObject] = []
     
     var listener: ListenerRegistration?
 
@@ -29,11 +29,16 @@ class ShowTodoViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = self
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+     
         listener = db.collection("users").document(currentUser!.uid).collection("todos").addSnapshotListener { [self] documentSnapshot, error in
                        if let error = error {
                            print("ドキュメントの取得に失敗しました", error)
                        } else {
-                           self.dataArray = []
+                        self.dataArray = []
                            if let documentSnapshots = documentSnapshot?.documents {
                                for document in documentSnapshots {
                                 let TodoData = DataObject(document: document)
@@ -44,7 +49,15 @@ class ShowTodoViewController: UIViewController, UITableViewDelegate {
                                }
                            }
                        }
-                   }
+           
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.dataArray == [] {
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,19 +89,33 @@ class ShowTodoViewController: UIViewController, UITableViewDelegate {
 extension ShowTodoViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return self.dataArray.count
-        return 1
+         return self.dataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell")
         let label1 = cell?.contentView.viewWithTag(1) as! UILabel
         let label2 = cell?.contentView.viewWithTag(2) as! UILabel
-//        label1.text = self.dataArray[indexPath.row].title
-//        label2.text = self.dataArray[indexPath.row].timelimit
-        label1.text = "title"
-        label2.text = "timelimit"
+        let check = cell?.contentView.viewWithTag(3) as! UIImageView
+        check.isHidden = true
+        label1.text = self.dataArray[indexPath.row].title
+        label2.text = self.dataArray[indexPath.row].timelimit
+        if self.dataArray[indexPath.row].done == true{
+            check.isHidden = false
+        }
         return cell!
+    }
+}
+
+extension ShowTodoViewController: UITableViewDelegate{
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEdit" {
+            let Edit = segue.destination as! EditTodoViewController
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                Edit.Data = dataArray[indexPath.row]
+            }
+        }
     }
 }
 

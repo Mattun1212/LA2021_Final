@@ -30,8 +30,10 @@ class SignUpViewController: UIViewController{
         passwordTextField.delegate = self
         nameTextField.delegate = self
         signUp.delegate = self
+        
+        passwordTextField.isSecureTextEntry = true
+        
         RegisterButton.isEnabled = false
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func signup(_ sender: Any) {

@@ -20,14 +20,17 @@ class ShowDoneViewController: UIViewController {
 
     var Id: DocumentReference?
     
-    @IBOutlet weak var tableView: UITableView!
-    
+    //@IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 175, height: 175)
+        layout.sectionInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        collectionView.collectionViewLayout = layout
         
     }
     
@@ -44,7 +47,7 @@ class ShowDoneViewController: UIViewController {
                                 let TodoData = DoneObject(document: document)
                                 self.dataArray.append(TodoData)
                                  DispatchQueue.main.async {
-                                    self.tableView.reloadData()
+                                    self.collectionView.reloadData()
                                  }
                                }
                            }
@@ -56,7 +59,7 @@ class ShowDoneViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if self.dataArray == [] {
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }
     }
     
@@ -67,34 +70,33 @@ class ShowDoneViewController: UIViewController {
 
 }
 
-extension ShowDoneViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return self.dataArray.count
+extension ShowDoneViewController:UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return self.dataArray.count
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DoneCell")
-        let label1 = cell?.contentView.viewWithTag(1) as! UILabel
-        let label2 = cell?.contentView.viewWithTag(2) as! UILabel
-        let label3 = cell?.contentView.viewWithTag(3) as! UILabel
+        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DoneCell", for: indexPath)
+            cell.layer.borderWidth = 2.0
+            let label1 = cell.contentView.viewWithTag(1) as! UILabel
+            let label2 = cell.contentView.viewWithTag(2) as! UILabel
+            let icon = cell.contentView.viewWithTag(3) as! UIImageView
+            
+            label1.text = self.dataArray[indexPath.row].title
+            let arr:[String] = self.dataArray[indexPath.row].date!.components(separatedBy: "-")
+            label2.text = "\(arr[1])/\(arr[2])"
+            icon.image = UIImage(named: self.dataArray[indexPath.row].tag!)
     
-        label1.text = self.dataArray[indexPath.row].title
-        label2.text = self.dataArray[indexPath.row].date
-        label3.text = self.dataArray[indexPath.row].tag
-//        if self.dataArray[indexPath.row].done == true{
-//            check.isHidden = false
-//        }
-        return cell!
-    }
+            return cell
+        }
 }
 
-extension ShowDoneViewController: UITableViewDelegate{
+extension ShowDoneViewController: UICollectionViewDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Editfeeling" {
             let Edit = segue.destination as! EditDoneViewController
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+            if let indexPath = collectionView.indexPath(for: sender as! UICollectionViewCell) {
                 Edit.Data = dataArray[indexPath.row]
             }
         }

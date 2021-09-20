@@ -91,12 +91,12 @@ extension ShowDoneViewController: UITableViewDataSource {
 
 extension ShowDoneViewController: UITableViewDelegate{
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "Editfeeling" {
-//            let Edit = segue.destination as! EditTodoViewController
-//            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-//                Edit.Data = dataArray[indexPath.row]
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Editfeeling" {
+            let Edit = segue.destination as! EditDoneViewController
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                Edit.Data = dataArray[indexPath.row]
+            }
+        }
+    }
 }

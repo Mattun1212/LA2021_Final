@@ -11,22 +11,58 @@ import FirebaseAuth
 
 class EditDoneViewController: UIViewController {
     let currentUser = Auth.auth().currentUser
+    let db = Firestore.firestore()
+    var Data: DoneObject!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var feelingTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleLabel.text = Data?.title
+        tagLabel.text = Data?.tag
+        feelingTextView.text = Data?.feeling
+        feelingTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+        feelingTextView.layer.borderWidth = 1.0
+        feelingTextView.layer.cornerRadius = 1.0
+        feelingTextView.layer.masksToBounds = true
+        navigationController?.delegate = self
+      //  feelingTextView.delegate = self
 
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension EditDoneViewController: UINavigationControllerDelegate{
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+           if viewController is ShowDoneViewController{
+            if let feelingText = feelingTextView.text{
+                db.collection("users").document(currentUser!.uid).collection("dones").document(Data.id!).updateData(["feeling": feelingText]) { err in
+                    if let err = err { // エラーハンドリング
+                        print("Error updating document: \(err)")
+                    } else { // 書き換え成功ハンドリング
+                        print("aaaaaaaaaa")
+                    }
+                    
+                }
+            }
+       }
+    }
+}
+
+//extension EditDoneViewController: UITextViewDelegate {
+//
+//    func textViewDidChangeSelection(_ textView: UITextView) {
+//        // textFieldが空かどうかの判別するための変数(Bool型)で定義
+//        let feelingIsEmpty = feelingTextView.text?.isEmpty ?? true
+//        // 全てのtextFieldが記入済みの場合の処理
+//        if feelingIsEmpty  {
+//            doneButton.isEnabled = false
+//        } else {
+//            doneButton.isEnabled = true
+//        }
+//    }
+//
+//}

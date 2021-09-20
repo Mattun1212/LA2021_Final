@@ -12,6 +12,7 @@ import FirebaseFirestore
 class AddTodoViewController: UIViewController{
     let currentUser = Auth.auth().currentUser
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var categoryTagSegment: UISegmentedControl!
     @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -19,6 +20,7 @@ class AddTodoViewController: UIViewController{
     var datePicker: UIDatePicker = UIDatePicker()
     let alert: Alert = Alert()
     let db = Firestore.firestore()
+    var category:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +35,7 @@ class AddTodoViewController: UIViewController{
         titleTextField.delegate = self
         detailTextView.delegate = self
         dateTextField.delegate = self
-
+        category = "本"
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(changeDate), for: .valueChanged)
@@ -66,12 +68,16 @@ class AddTodoViewController: UIViewController{
         
     }
     
+    @IBAction func categorySegmentControl(_ sender: UISegmentedControl) {
+        category = sender.titleForSegment(at: sender.selectedSegmentIndex)!
+    }
+    
     @IBAction func save(_ sender: Any) {
-        
         if let titleText = titleTextField.text,
            let detailText = detailTextView.text,
+           let categoryTag = category,
            let dateText = dateTextField.text {
-            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "detail": detailText, "timelimit": dateText, "done": false], merge: true)
+            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "tag": categoryTag, "detail": detailText, "timelimit": dateText, "done": false], merge: true)
         
         self.navigationController?.popViewController(animated: true)
         }

@@ -13,12 +13,13 @@ class EditTodoViewController: UIViewController {
     let currentUser = Auth.auth().currentUser
     
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var categoryTagSegment: UISegmentedControl!
     @IBOutlet weak var detailTextView: UITextView!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
     var Data: DataObject!
-    
+    var category: String?
     var datePicker: UIDatePicker = UIDatePicker()
     let alert: Alert = Alert()
     let db = Firestore.firestore()
@@ -37,14 +38,17 @@ class EditTodoViewController: UIViewController {
 
         
         navigationController?.delegate = self
+        if Data?.tag == "ゲーム" {
+            categoryTagSegment.selectedSegmentIndex = 1
+        }else if Data?.tag == "その他"{
+            categoryTagSegment.selectedSegmentIndex = 2
+        }
         
         titleTextField.text = Data?.title
+        category = Data?.tag
         detailTextView.text = Data?.detail
         dateTextField.text = Data?.timelimit
 
-        if Data?.done == true{
-            doneButton.setTitle("doneを取り消す", for: .normal)
-        }
         
         doneButton.isEnabled = true
         
@@ -85,44 +89,39 @@ class EditTodoViewController: UIViewController {
         textFieldDidChangeSelection(dateTextField)
     }
     
+    @IBAction func categorySegmentControl(_ sender: UISegmentedControl) {
+        category = sender.titleForSegment(at: sender.selectedSegmentIndex)!
+    }
     
-    @IBAction func done(_ sender:Any){
-        if let titleText = titleTextField.text,
-           let detailText = detailTextView.text,
-           let dateText = dateTextField.text,
-           var done = Data?.done
-           {
-            done.toggle()
-            db.collection("users").document(currentUser!.uid).collection("todos").document(Data.id!).updateData(["title": titleText, "detail": detailText, "timelimit": dateText, "done": done]) { err in
-                if let err = err { // エラーハンドリング
-                    print("Error updating document: \(err)")
-                } else { // 書き換え成功ハンドリング
-                    print("Update successfully!")
-                }
-                
-            }
-        self.navigationController?.popViewController(animated: true)
-       }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDone" {
+            let Done = segue.destination as! DoneTodoViewController
+                Done.Data = Data
+        }
     }
     
     @IBAction func deleteTodo(_ sender:Any){
-        let dialog = UIAlertController(title: "削除", message: "本当に削除しますか？", preferredStyle: .alert)
+        let dialog = UIAlertController(title: "削除", message: "削除すると現在のだるま落としがやり直しになりますが本当に削除しますか？", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
-            do {
-                 try self.db.collection("users").document(currentUser!.uid).collection("todos").document(Data.id!).delete() { err in
+            self.db.collection("users").document(currentUser!.uid).collection("todos").document(Data.id!).delete() { err in
                     if let err = err {
-                        print("Error removing document: \(err)")
+                        let dialog = UIAlertController(title: "削除失敗", message: err.localizedDescription, preferredStyle: .alert)
+                        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     } else {
-                        print("Document successfully removed!")
+                        self.db.collection("users").document(currentUser!.uid).updateData(["currentDaruma": 0]){ err in
+                                if let err = err { // エラーハンドリング
+                                    print("Error updating document: \(err)")
+                                } else { // 書き換え成功ハンドリング
+                                    print("Update successfully!")
+                                }
+                        }
                     }
                     
                 }
                 self.navigationController?.popViewController(animated: true)
-                
-            } catch let error as NSError {
-                let dialog = UIAlertController(title: "削除失敗", message: error.localizedDescription, preferredStyle: .alert)
-                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            }
+        
         }))
         dialog.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
         
@@ -136,8 +135,9 @@ extension EditTodoViewController: UINavigationControllerDelegate{
            if viewController is ShowTodoViewController{
             if let titleText = titleTextField.text,
                let detailText = detailTextView.text,
+               let categoryTag = category,
                let dateText = dateTextField.text {
-                db.collection("users").document(currentUser!.uid).collection("todos").document(Data.id!).updateData(["title": titleText, "detail": detailText, "timelimit": dateText]) { err in
+                db.collection("users").document(currentUser!.uid).collection("todos").document(Data.id!).updateData(["title": titleText, "tag": categoryTag, "detail": detailText, "timelimit": dateText]) { err in
                     if let err = err { // エラーハンドリング
                         print("Error updating document: \(err)")
                     } else { // 書き換え成功ハンドリング

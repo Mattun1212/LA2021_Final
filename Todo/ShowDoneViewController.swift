@@ -1,20 +1,20 @@
 //
-//  ShowTodoViewController.swift
+//  ShowDoneViewController.swift
 //  Todo
 //
-//  Created by Koutaro Matsushita on 2021/09/16.
+//  Created by Koutaro Matsushita on 2021/09/20.
 //
 
 import UIKit
 import Firebase
 import FirebaseFirestore
 
-class ShowTodoViewController: UIViewController {
+class ShowDoneViewController: UIViewController {
     let db = Firestore.firestore()
     
     let currentUser = Auth.auth().currentUser
     
-    var dataArray: [DataObject] = []
+    var dataArray: [DoneObject] = []
     
     var listener: ListenerRegistration?
 
@@ -34,14 +34,14 @@ class ShowTodoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
      
-        listener = db.collection("users").document(currentUser!.uid).collection("todos").addSnapshotListener { [self] documentSnapshot, error in
+        listener = db.collection("users").document(currentUser!.uid).collection("dones").addSnapshotListener { [self] documentSnapshot, error in
                        if let error = error {
                            print("ドキュメントの取得に失敗しました", error)
                        } else {
                         self.dataArray = []
                            if let documentSnapshots = documentSnapshot?.documents {
                                for document in documentSnapshots {
-                                let TodoData = DataObject(document: document)
+                                let TodoData = DoneObject(document: document)
                                 self.dataArray.append(TodoData)
                                  DispatchQueue.main.async {
                                     self.tableView.reloadData()
@@ -64,23 +64,23 @@ class ShowTodoViewController: UIViewController {
             super.viewWillDisappear(animated)
             listener?.remove()
     }
-    
+
 }
 
-extension ShowTodoViewController: UITableViewDataSource {
+extension ShowDoneViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          return self.dataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DoneCell")
         let label1 = cell?.contentView.viewWithTag(1) as! UILabel
         let label2 = cell?.contentView.viewWithTag(2) as! UILabel
         let label3 = cell?.contentView.viewWithTag(3) as! UILabel
     
         label1.text = self.dataArray[indexPath.row].title
-        label2.text = self.dataArray[indexPath.row].timelimit
+        label2.text = self.dataArray[indexPath.row].date
         label3.text = self.dataArray[indexPath.row].tag
 //        if self.dataArray[indexPath.row].done == true{
 //            check.isHidden = false
@@ -89,15 +89,14 @@ extension ShowTodoViewController: UITableViewDataSource {
     }
 }
 
-extension ShowTodoViewController: UITableViewDelegate{
+extension ShowDoneViewController: UITableViewDelegate{
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toEdit" {
-            let Edit = segue.destination as! EditTodoViewController
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                Edit.Data = dataArray[indexPath.row]
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "Editfeeling" {
+//            let Edit = segue.destination as! EditTodoViewController
+//            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+//                Edit.Data = dataArray[indexPath.row]
+//            }
+//        }
+//    }
 }
-

@@ -9,15 +9,10 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-//delegateはweak参照したいため、classを継承する
-protocol SignUpDelegate: class {
-    func createUserToFirestoreAction()
-    func completedRegisterUserInfoAction()
-    func showAlert(error: String?)
-}
 
 class DataObject: NSObject{
     var title: String?
+    var tag: String?
     var timelimit: String?
     var detail: String?
     var done: Bool?
@@ -25,22 +20,58 @@ class DataObject: NSObject{
     
     init(document: QueryDocumentSnapshot) {
         let data = document.data()
-        
-//        let dateValue = (data["timelimit"] as! Timestamp).dateValue()
-//        let f = DateFormatter()
-//        f.locale = Locale(identifier: "ja_JP")
-//        f.dateStyle = .long
-//        f.timeStyle = .none
-//        let date = f.string(from: dateValue)
-        
-        
         self.title = data["title"] as? String
+        self.tag = data["tag"] as? String
         self.timelimit = data["timelimit"] as? String
         self.detail = data["detail"] as? String
         self.done = data["done"] as? Bool
         self.id = document.documentID
     }
 
+}
+
+class DoneObject: NSObject{
+    var title: String?
+    var tag: String?
+    var date: String?
+    var feeling: String?
+    var id: String?
+    
+    init(document: QueryDocumentSnapshot) {
+        let data = document.data()
+        self.title = data["title"] as? String
+        self.tag = data["tag"] as? String
+        self.date = data["date"] as? String
+        self.feeling = data["feeling"] as? String
+        self.id = document.documentID
+    }
+
+}
+
+
+class userInfo: NSObject{
+    var userName: String?
+    var email: String?
+    var docid: String?
+    var current: Int?
+    var success: Int?
+    
+    init(document: QueryDocumentSnapshot) {
+        let data = document.data()
+        self.userName = data["userName"] as? String
+        self.email = data["email"] as? String
+        self.current = data["currentDaruma"] as? Int
+        self.success = data["successTimes"] as? Int
+        self.docid = document.documentID
+    }
+
+}
+
+//delegateはweak参照したいため、classを継承する
+protocol SignUpDelegate: class {
+    func createUserToFirestoreAction()
+    func completedRegisterUserInfoAction()
+    func showAlert(error: String?)
 }
 
 class SignUp {

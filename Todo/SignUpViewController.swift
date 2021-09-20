@@ -61,6 +61,8 @@ class SignUpViewController: UIViewController{
            // 保存内容を定義する（辞書型）
            let docData = ["email": email,
                           "userName": userName,
+                          "currentDaruma": 0,
+                          "successTimes": 0,
                           "createdAt": Timestamp()] as [String : Any?]
 
            // FirebaseFirestoreへ保存

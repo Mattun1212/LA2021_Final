@@ -49,37 +49,3 @@ class EditDoneViewController: UIViewController {
     }
 
 }
-
-
-
-//extension EditDoneViewController: UINavigationControllerDelegate{
-//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-//           if viewController is ShowDoneViewController{
-//            if let feelingText = feelingTextView.text{
-//                db.collection("users").document(currentUser!.uid).collection("dones").document(Data.id!).updateData(["feeling": feelingText]) { err in
-//                    if let err = err { // エラーハンドリング
-//                        print("Error updating document: \(err)")
-//                    } else { // 書き換え成功ハンドリング
-//                        print("aaaaaaaaaa")
-//                    }
-//
-//                }
-//            }
-//       }
-//    }
-//}
-
-//extension EditDoneViewController: UITextViewDelegate {
-//
-//    func textViewDidChangeSelection(_ textView: UITextView) {
-//        // textFieldが空かどうかの判別するための変数(Bool型)で定義
-//        let feelingIsEmpty = feelingTextView.text?.isEmpty ?? true
-//        // 全てのtextFieldが記入済みの場合の処理
-//        if feelingIsEmpty  {
-//            doneButton.isEnabled = false
-//        } else {
-//            doneButton.isEnabled = true
-//        }
-//    }
-//
-//}

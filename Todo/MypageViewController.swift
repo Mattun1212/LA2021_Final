@@ -23,16 +23,6 @@ class MypageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        db.collection("users").document(currentUser!.uid).getDocument {(document, err) in
-//            if let err = err {
-//                    print("Error getting documents: \(err)")
-//                } else {
-//                    let data = document!.data()
-//                    self.nameLabel.text = data!["userName"] as? String
-//                    self.emailLabel.text = data!["email"] as? String
-//                }
-//        }
-//
     }
     
     override func viewWillAppear(_ animated: Bool) {

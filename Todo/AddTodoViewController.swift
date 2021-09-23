@@ -53,7 +53,9 @@ class AddTodoViewController: UIViewController{
     @objc func changeDate(){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        dateTextField.text = "\(formatter.string(from: datePicker.date))"
+        if datePicker.date >= Date(){
+            dateTextField.text = "\(formatter.string(from: datePicker.date))"
+        }
     }
 
     
@@ -62,8 +64,9 @@ class AddTodoViewController: UIViewController{
         // 日付のフォーマット
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        dateTextField.text = "\(formatter.string(from: datePicker.date))"
-        
+        if datePicker.date >= Date(){
+            dateTextField.text = "\(formatter.string(from: datePicker.date))"
+        }
         textFieldDidChangeSelection(dateTextField)
         
     }
@@ -77,7 +80,7 @@ class AddTodoViewController: UIViewController{
            let detailText = detailTextView.text,
            let categoryTag = category,
            let dateText = dateTextField.text {
-            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "tag": categoryTag, "detail": detailText, "timelimit": dateText, "done": false], merge: true)
+            db.collection("users").document(currentUser!.uid).collection("todos").document().setData(["title": titleText, "tag": categoryTag, "detail": detailText, "timelimit": dateText], merge: true)
         
         self.navigationController?.popViewController(animated: true)
         }

@@ -83,10 +83,12 @@ extension ShowDoneViewController:UICollectionViewDataSource{
             let icon = cell.contentView.viewWithTag(3) as! UIImageView
             
             label1.text = self.dataArray[indexPath.row].title
-            let arr:[String] = self.dataArray[indexPath.row].date!.components(separatedBy: "-")
+            let date = self.dataArray[indexPath.row].date
+            let arr:[String] = date?.components(separatedBy: "-") ?? ["-","-","-"]
             label2.text = "\(arr[1])/\(arr[2])"
-            icon.image = UIImage(named: self.dataArray[indexPath.row].tag!)
-    
+            let tag = self.dataArray[indexPath.row].tag
+            icon.image = UIImage(named: tag ?? "その他")
+
             return cell
         }
 }

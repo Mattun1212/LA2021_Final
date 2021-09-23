@@ -27,30 +27,47 @@ class EditDoneViewController: UIViewController {
         feelingTextView.layer.borderWidth = 1.0
         feelingTextView.layer.cornerRadius = 1.0
         feelingTextView.layer.masksToBounds = true
-        navigationController?.delegate = self
+        
       //  feelingTextView.delegate = self
 
     }
     
-
-}
-
-extension EditDoneViewController: UINavigationControllerDelegate{
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-           if viewController is ShowDoneViewController{
-            if let feelingText = feelingTextView.text{
-                db.collection("users").document(currentUser!.uid).collection("dones").document(Data.id!).updateData(["feeling": feelingText]) { err in
-                    if let err = err { // エラーハンドリング
-                        print("Error updating document: \(err)")
-                    } else { // 書き換え成功ハンドリング
-                        print("aaaaaaaaaa")
-                    }
-                    
+    @IBAction func back(_ sender:Any){
+        if feelingTextView.text?.count != 0 {
+            db.collection("users").document(currentUser!.uid).collection("dones").document(Data.id!).updateData([ "feeling":feelingTextView.text!]) { err in
+                if let err = err { // エラーハンドリング
+                    print("Error updating document: \(err)")
+                } else { // 書き換え成功ハンドリング
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
-       }
+        }else{
+            let dialog = UIAlertController(title: "エラー", message: "感想を入力してください", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(dialog, animated: true, completion: nil)
+        }
     }
+
 }
+
+
+
+//extension EditDoneViewController: UINavigationControllerDelegate{
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//           if viewController is ShowDoneViewController{
+//            if let feelingText = feelingTextView.text{
+//                db.collection("users").document(currentUser!.uid).collection("dones").document(Data.id!).updateData(["feeling": feelingText]) { err in
+//                    if let err = err { // エラーハンドリング
+//                        print("Error updating document: \(err)")
+//                    } else { // 書き換え成功ハンドリング
+//                        print("aaaaaaaaaa")
+//                    }
+//
+//                }
+//            }
+//       }
+//    }
+//}
 
 //extension EditDoneViewController: UITextViewDelegate {
 //

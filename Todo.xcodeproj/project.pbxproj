@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		464E3DA426FCAF3600D4CF76 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 464E3DA326FCAF3600D4CF76 /* SnapKit */; };
 		46A4BF5826F36F2B00B42C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BF5726F36F2B00B42C77 /* AppDelegate.swift */; };
 		46A4BF5A26F36F2B00B42C77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BF5926F36F2B00B42C77 /* SceneDelegate.swift */; };
 		46A4BF5F26F36F2B00B42C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A4BF5D26F36F2B00B42C77 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F899E113F2D10EC921C6E05C /* Pods_Todo.framework in Frameworks */,
+				464E3DA426FCAF3600D4CF76 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +150,9 @@
 			dependencies = (
 			);
 			name = Todo;
+			packageProductDependencies = (
+				464E3DA326FCAF3600D4CF76 /* SnapKit */,
+			);
 			productName = Todo;
 			productReference = 46A4BF5426F36F2B00B42C77 /* Todo.app */;
 			productType = "com.apple.product-type.application";
@@ -175,6 +180,9 @@
 				Base,
 			);
 			mainGroup = 46A4BF4B26F36F2B00B42C77;
+			packageReferences = (
+				464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 46A4BF5526F36F2B00B42C77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -409,6 +417,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Todo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,6 +471,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		464E3DA326FCAF3600D4CF76 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 46A4BF4C26F36F2B00B42C77 /* Project object */;
 }

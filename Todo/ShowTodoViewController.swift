@@ -9,8 +9,13 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 import SnapKit
+import Lottie
+import AVFoundation
 
 class ShowTodoViewController: UIViewController {
+    
+    var animationView = AnimationView()
+    var seAudioPlayer: AVAudioPlayer?
     let db = Firestore.firestore()
     let currentUser = Auth.auth().currentUser
     var dataArray: [DataObject] = []
@@ -143,6 +148,7 @@ class ShowTodoViewController: UIViewController {
                         } else {
                             self.collectionView.reloadData()
                             setDaruma()
+                            addAnimationView()
                             db.collection("users").document(currentUser!.uid).updateData(["successTimes": successTimes!,"currentDaruma": currentDaruma!]){ err in
                                 if let err = err { // エラーハンドリング
                                     let dialog = UIAlertController(title: "ランク更新失敗", message: err.localizedDescription, preferredStyle: .alert)
@@ -150,6 +156,7 @@ class ShowTodoViewController: UIViewController {
                                     present(dialog, animated: true, completion: nil)
                                 } else { // 書き換え成功ハンドリング
                                     print("Update successfully!")
+                                    
                                 }
                             }
                         }
@@ -181,7 +188,15 @@ class ShowTodoViewController: UIViewController {
                                 if let err = err { // エラーハンドリング
                                     print("Error updating document: \(err)")
                                 } else { // 書き換え成功ハンドリング
-                                    print("Update successfully!")
+                                    let dialog = UIAlertController(title: "だるま落とし失敗", message: "だるま落としが最初からやり直しになりました。。。", preferredStyle: .alert)
+                                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                                    collapseAnimationView()
+                                    animationView.play { finished in
+                                        if finished {
+                                            self.animationView.removeFromSuperview()
+                                            present(dialog, animated: true, completion: nil)
+                                        }
+                                    }
                                 }
                         }
                     }
@@ -222,7 +237,7 @@ class ShowTodoViewController: UIViewController {
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.dateFormat = "yyyy-MM-dd"
         for data in dataArray {
-            let timelimit = formatter.date(from: data.timelimit!)!
+            let timelimit = formatter.date(from: data.timelimit!) ?? Date()
             let dialog = UIAlertController(title: "失敗", message: "期限を守れなかったのでだるま落としに失敗しました。。。", preferredStyle: .alert)
             dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
                 self.db.collection("users").document(currentUser!.uid).updateData(["currentDaruma": 0]){ err in
@@ -241,12 +256,67 @@ class ShowTodoViewController: UIViewController {
                        print("Error updating document: \(err)")
                     } else { // 書き換え成功ハンドリング
                        self.collectionView.reloadData()
-                       self.present(dialog, animated: true, completion: nil)
+                        self.collapseAnimationView()
+                        self.animationView.play { finished in
+                            if finished {
+                                self.animationView.removeFromSuperview()
+                                self.present(dialog, animated: true, completion: nil)
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+    
+    func addAnimationView() {
+        if currentDaruma == 0{
+            animationView = AnimationView(name: "lf20_2lsutk8e")
+        }else if currentDaruma == 1{
+            animationView = AnimationView(name: "f20_n51mt8di")
+        }else if currentDaruma == 2{
+            animationView = AnimationView(name: "lf20_wotrgcan")
+        }else if currentDaruma == 3{
+            animationView = AnimationView(name: "lf20_fkse2kbw")
+        }
+            //アニメーションの位置指定（画面中央）
+            animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+            animationView.backgroundColor = UIColor.gray.withAlphaComponent(0.4)
+            
+            animationView.contentMode = .scaleAspectFit
         
+            animationView.isUserInteractionEnabled = true
+            animationView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped)))
+
+            //ViewControllerに配置
+            view.addSubview(animationView)
+    }
+    
+    func collapseAnimationView(){
+        animationView = AnimationView(name: "lf20_f3rgysv8")
+        animationView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        animationView.backgroundColor = UIColor.gray.withAlphaComponent(0.4)
+        
+        animationView.contentMode = .scaleAspectFit
+        view.addSubview(animationView)
+        animationView.play()
+    }
+    
+    @objc func tapped() {
+        animationView.play { [self] finished in
+         if finished {
+            self.animationView.removeFromSuperview()
+            if currentDaruma == 0 {
+                let dialog = UIAlertController(title: "完了！", message: "だるま落とし成功！！さすがです！！", preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(dialog, animated: true, completion: nil)
+            }else{
+                let dialog = UIAlertController(title: "完了！", message: "だるま落とし成功まであと\(4-currentDaruma)回！", preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(dialog, animated: true, completion: nil)
+            }
+        }
+       }
     }
     
 }
@@ -269,7 +339,13 @@ extension ShowTodoViewController:UICollectionViewDataSource{
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TodoCell", for: indexPath)
-            cell.layer.borderWidth = 2.0
+            cell.backgroundColor = UIColor.white
+            cell.layer.cornerRadius = 12
+            cell.layer.shadowOpacity = 0.4
+            cell.layer.shadowRadius = 12
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOffset = CGSize(width: 8, height: 8)
+            cell.layer.masksToBounds = false
             let label1 = cell.contentView.viewWithTag(1) as! UILabel
             let label2 = cell.contentView.viewWithTag(2) as! UILabel
             let icon = cell.contentView.viewWithTag(3) as! UIImageView

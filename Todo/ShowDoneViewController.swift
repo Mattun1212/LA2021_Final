@@ -20,7 +20,6 @@ class ShowDoneViewController: UIViewController {
 
     var Id: DocumentReference?
     
-    //@IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +66,39 @@ class ShowDoneViewController: UIViewController {
             super.viewWillDisappear(animated)
             listener?.remove()
     }
+    
+    func deleteTodo(id: String){
+        let dialog = UIAlertController(title: "削除", message: "本当に削除しますか？", preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
+            self.db.collection("users").document(currentUser!.uid).collection("dones").document(id).delete() { err in
+                    if let err = err {
+                        let dialog = UIAlertController(title: "削除失敗", message: err.localizedDescription, preferredStyle: .alert)
+                        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    } else {
+                        self.collectionView.reloadData()
+                    }
+            }
+        }))
+        dialog.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        
+        present(dialog, animated: true, completion: nil)
+    }
+    
+    @IBAction func handleAction(_ sender: UICollectionViewCell){
+         let actionSheet = UIAlertController(title: "Menu", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+         let action1 = UIAlertAction(title: "削除する", style: UIAlertAction.Style.destructive, handler: {
+             (action: UIAlertAction!) in
+             let cellId = self.dataArray[sender.tag].id
+             self.deleteTodo(id: cellId!)
+         })
+
+         actionSheet.addAction(action1)
+         actionSheet.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+
+         self.present(actionSheet, animated: true, completion: nil)
+         
+     }
 
 }
 
@@ -77,11 +109,17 @@ extension ShowDoneViewController:UICollectionViewDataSource{
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DoneCell", for: indexPath)
-            cell.layer.borderWidth = 2.0
+            cell.backgroundColor = UIColor.white
+            cell.layer.cornerRadius = 12
+            cell.layer.shadowOpacity = 0.4
+            cell.layer.shadowRadius = 12
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOffset = CGSize(width: 4, height: 4)
+            cell.layer.masksToBounds = false
             let label1 = cell.contentView.viewWithTag(1) as! UILabel
             let label2 = cell.contentView.viewWithTag(2) as! UILabel
             let icon = cell.contentView.viewWithTag(3) as! UIImageView
-            
+            cell.tag = indexPath.row + 1
             label1.text = self.dataArray[indexPath.row].title
             let date = self.dataArray[indexPath.row].date
             let arr:[String] = date?.components(separatedBy: "-") ?? ["-","-","-"]

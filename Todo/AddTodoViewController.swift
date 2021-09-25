@@ -71,6 +71,10 @@ class AddTodoViewController: UIViewController{
         
     }
     
+    @IBAction func back(_ sender:Any ){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func categorySegmentControl(_ sender: UISegmentedControl) {
         category = sender.titleForSegment(at: sender.selectedSegmentIndex)!
     }
@@ -117,8 +121,9 @@ extension AddTodoViewController: UITextViewDelegate {
         let titleIsEmpty = titleTextField.text?.isEmpty ?? true
         let detailIsEmpty = detailTextView.text?.isEmpty ?? true
         let dateIsEmpty = dateTextField.text?.isEmpty ?? true
+        let validateDate = dateTextField.text?.isDate() ?? true
         // 全てのtextFieldが記入済みの場合の処理
-        if titleIsEmpty || detailIsEmpty || dateIsEmpty {
+        if titleIsEmpty || detailIsEmpty || dateIsEmpty || (validateDate == false) {
             saveButton.isEnabled = false
         } else {
             saveButton.isEnabled = true
@@ -126,3 +131,13 @@ extension AddTodoViewController: UITextViewDelegate {
     }
    
 }
+
+extension String {
+    func isDate() -> Bool {
+        let pattern = "^[0-9]{4}\\-(0[1-9]|1[0-2])\\-(0[1-9]|[12][0-9]|3[01])$"
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
+        let matches = regex.matches(in: self, range: NSRange(0..<self.count))
+        return matches.count > 0
+    }
+}
+

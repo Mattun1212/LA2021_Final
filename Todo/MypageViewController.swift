@@ -17,9 +17,10 @@ class MypageViewController: UIViewController {
     var listener: ListenerRegistration?
     var Data: userInfo!
     
-    @IBOutlet var nameLabel:UILabel!
-    @IBOutlet var lankLabel:UILabel!
-    @IBOutlet var darumaLabel:UILabel!
+    @IBOutlet weak var nameLabel:UILabel!
+    @IBOutlet weak var lankLabel:UILabel!
+//    @IBOutlet weak var darumaLabel:UILabel!
+    @IBOutlet weak var darumaImageView:UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,8 @@ class MypageViewController: UIViewController {
             let success = data["successTimes"] as? Int ?? 0
             let daruma = data["currentDaruma"] as? Int ?? 0
             lankLabel.text = "\(calculateRank(success: success))"
-            darumaLabel.text = "\(String(daruma))/4"
-                               
+//            darumaLabel.text = "\(String(daruma))/4"
+            setImage(daruma: daruma)
         }
     
     }
@@ -50,6 +51,18 @@ class MypageViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
             listener?.remove()
+    }
+    
+    func setImage(daruma: Int){
+        if daruma == 0 {
+            darumaImageView.image = UIImage(named: "left4")
+        }else if daruma == 1{
+            darumaImageView.image = UIImage(named: "left3")
+        }else if daruma == 2{
+            darumaImageView.image = UIImage(named: "left2")
+        }else if daruma == 3{
+            darumaImageView.image = UIImage(named: "left1")
+        }
     }
 
     @IBAction func logout(_ sender: Any) {

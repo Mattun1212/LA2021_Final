@@ -27,8 +27,8 @@ class ShowDoneViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 175, height: 175)
-        layout.sectionInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.sectionInset = UIEdgeInsets(top: 24, left: 30, bottom: 24, right: 30)
         collectionView.collectionViewLayout = layout
         
     }
@@ -95,7 +95,13 @@ class ShowDoneViewController: UIViewController {
 
          actionSheet.addAction(action1)
          actionSheet.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
-
+        
+         if UIDevice.current.userInterfaceIdiom == .pad {
+            actionSheet.popoverPresentationController?.sourceView = self.view
+            let screenSize = UIScreen.main.bounds
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width / 2,y: screenSize.size.height,width: 0,height: 0)
+         }
+        
          self.present(actionSheet, animated: true, completion: nil)
          
      }

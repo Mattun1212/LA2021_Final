@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-class AddTodoViewController: UIViewController{
+class AddTodoViewController: UITableViewController{
     let currentUser = Auth.auth().currentUser
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryTagSegment: UISegmentedControl!

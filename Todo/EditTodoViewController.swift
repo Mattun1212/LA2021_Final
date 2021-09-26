@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class EditTodoViewController: UIViewController,UITextViewDelegate{
+class EditTodoViewController: UITableViewController,UITextViewDelegate{
     let currentUser = Auth.auth().currentUser
     
     @IBOutlet weak var titleTextField: UITextField!

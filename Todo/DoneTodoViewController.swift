@@ -16,6 +16,7 @@ class DoneTodoViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var finishDateLabel: UILabel!
     @IBOutlet weak var feelingTextView: UITextView!
     @IBOutlet weak var doneButton: UIButton!
     
@@ -30,6 +31,7 @@ class DoneTodoViewController: UIViewController {
         super.viewDidLoad()
         titleLabel.text = Data?.title
         tagLabel.text = Data?.tag
+        finishDateLabel.text = Data?.timelimit
         feelingTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         feelingTextView.layer.borderWidth = 1.0
         feelingTextView.layer.cornerRadius = 1.0

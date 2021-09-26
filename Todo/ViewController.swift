@@ -11,9 +11,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         // Do any additional setup after loading the view.
     }
     
-
 }

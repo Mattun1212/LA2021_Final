@@ -16,10 +16,13 @@ class MypageViewController: UIViewController {
     var credential: AuthCredential!
     var listener: ListenerRegistration?
     var Data: userInfo!
+    var email:String?
+    var password:String?
     
     @IBOutlet weak var nameLabel:UILabel!
-    @IBOutlet weak var lankLabel:UILabel!
-//    @IBOutlet weak var darumaLabel:UILabel!
+    @IBOutlet weak var rankLabel:UILabel!
+    @IBOutlet weak var rankProgressbar:UIProgressView!
+    @IBOutlet weak var leftSuccessLabel:UILabel!
     @IBOutlet weak var darumaImageView:UIImageView!
     
     override func viewDidLoad() {
@@ -41,8 +44,12 @@ class MypageViewController: UIViewController {
             nameLabel.text = data["userName"] as? String
             let success = data["successTimes"] as? Int ?? 0
             let daruma = data["currentDaruma"] as? Int ?? 0
-            lankLabel.text = "\(calculateRank(success: success))"
-//            darumaLabel.text = "\(String(daruma))/4"
+            email = data["email"] as? String
+            rankLabel.text = "\(calculateRank(success: success))"
+            let progress = Float(success % 4) / 4
+            rankProgressbar.setProgress(progress, animated: true)
+            view.addSubview(rankProgressbar)
+            leftSuccessLabel.text = "あと\(4 - success % 4)回"
             setImage(daruma: daruma)
         }
     
@@ -65,7 +72,7 @@ class MypageViewController: UIViewController {
         }
     }
 
-    @IBAction func logout(_ sender: Any) {
+     func logout() {
         if currentUser != nil {
             let dialog = UIAlertController(title: "ログアウト", message: "本当にログアウトしますか？", preferredStyle: .alert)
             dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
@@ -84,9 +91,82 @@ class MypageViewController: UIViewController {
         }
     }
     
+    func userDelete() {
+        let dialog = UIAlertController(title: "ユーザ認証", message: "パスワードを入力", preferredStyle: .alert)
+        dialog.addTextField(configurationHandler: {(textField) -> Void in
+            textField.delegate = self
+            textField.isSecureTextEntry = true
+        })
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
+        credential = EmailAuthProvider.credential(withEmail: email ?? "", password: password ?? "")
+        if currentUser != nil {
+            currentUser?.reauthenticate(with: credential!, completion: { [self] dataResult,error in
+              if let error = error {
+                let dialog = UIAlertController(title: "認証失敗", message: error.localizedDescription, preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(dialog, animated: true, completion: nil)
+              } else {
+                currentUser?.delete { error in
+                    if let error = error {
+                        let dialog = UIAlertController(title: "ユーザ削除失敗", message: error.localizedDescription, preferredStyle: .alert)
+                        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        present(dialog, animated: true, completion: nil)
+                    } else {
+                        self.db.collection("users").document(currentUser!.uid).delete() { error in
+                           if let error = error {
+                            let dialog = UIAlertController(title: "ユーザ情報は削除されましたが、データが削除されませんでした", message: error.localizedDescription, preferredStyle: .alert)
+                            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            present(dialog, animated: true, completion: nil)
+                           } else {
+                            let dialog = UIAlertController(title: "ユーザ情報が削除されました", message: nil, preferredStyle: .alert)
+                            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                              self.dismiss(animated: true, completion: nil)
+                              self.performSegue(withIdentifier: "Logout", sender: nil)
+                            }))
+                            present(dialog, animated: true, completion: nil)
+                           }
+                        }
+                    }
+                }
+              }
+            })
+        }
+        }))
+        
+        dialog.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        present(dialog, animated: true, completion: nil)
+    }
+    
     func calculateRank(success: Int) -> Int{
         let base = 1 + Int(success / 4)
         return base
     }
+    
+    @IBAction func handleAction(_ sender: Any){
+         let actionSheet = UIAlertController(title: "Menu", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+     
+         let action1 = UIAlertAction(title: "ログアウトする", style: UIAlertAction.Style.destructive, handler: {
+             (action: UIAlertAction!) in
+             self.logout()
+         })
+        
+         let action2 = UIAlertAction(title: "ユーザ情報を削除する", style: UIAlertAction.Style.destructive, handler: {
+             (action: UIAlertAction!) in
+            self.userDelete()
+         })
 
+         actionSheet.addAction(action1)
+         actionSheet.addAction(action2)
+         actionSheet.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+
+         self.present(actionSheet, animated: true, completion: nil)
+         
+     }
+
+}
+
+extension MypageViewController: UITextFieldDelegate{
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        password = textField.text
+    }
 }

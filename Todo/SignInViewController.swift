@@ -61,10 +61,8 @@ extension SignInViewController: UITextFieldDelegate {
         // 全てのtextFieldが記入済みの場合の処理
         if emailIsEmpty || passwordIsEmpty {
             LoginButton.isEnabled = false
-//            LoginButton.backgroundColor = UIColor.systemGray2
         } else {
             LoginButton.isEnabled = true
-//            LoginButton.backgroundColor = UIColor(named: "lineGreen")
         }
     }
 

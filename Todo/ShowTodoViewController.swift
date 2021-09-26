@@ -34,8 +34,8 @@ class ShowTodoViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 175, height: 175)
-        layout.sectionInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        layout.itemSize = CGSize(width: 150, height: 150)
+        layout.sectionInset = UIEdgeInsets(top: 24, left: 30, bottom: 24, right: 30)
         collectionView.collectionViewLayout = layout
 
     }
@@ -149,6 +149,7 @@ class ShowTodoViewController: UIViewController {
                             self.collectionView.reloadData()
                             setDaruma()
                             addAnimationView()
+                            
                             db.collection("users").document(currentUser!.uid).updateData(["successTimes": successTimes!,"currentDaruma": currentDaruma!]){ err in
                                 if let err = err { // エラーハンドリング
                                     let dialog = UIAlertController(title: "ランク更新失敗", message: err.localizedDescription, preferredStyle: .alert)
@@ -197,6 +198,9 @@ class ShowTodoViewController: UIViewController {
                                             present(dialog, animated: true, completion: nil)
                                         }
                                     }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        self.playSE(fileName: "collapse")
+                                    }
                                 }
                         }
                     }
@@ -212,7 +216,7 @@ class ShowTodoViewController: UIViewController {
    @IBAction func handleAction(_ sender: UICollectionViewCell){
         let actionSheet = UIAlertController(title: "Menu", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
     
-        let action1 = UIAlertAction(title: "Doneにする", style: UIAlertAction.Style.default, handler: {
+        let action1 = UIAlertAction(title: "完了する", style: UIAlertAction.Style.default, handler: {
             (action: UIAlertAction!) in
             let data = self.dataArray[sender.tag]
             self.done(data: data)
@@ -227,7 +231,13 @@ class ShowTodoViewController: UIViewController {
         actionSheet.addAction(action1)
         actionSheet.addAction(action2)
         actionSheet.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
-
+    
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            actionSheet.popoverPresentationController?.sourceView = self.view
+            let screenSize = UIScreen.main.bounds
+            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width / 2,y: screenSize.size.height,width: 0,height: 0)
+        }
+    
         self.present(actionSheet, animated: true, completion: nil)
         
     }
@@ -238,7 +248,7 @@ class ShowTodoViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         for data in dataArray {
             let timelimit = formatter.date(from: data.timelimit!) ?? Date()
-            let dialog = UIAlertController(title: "失敗", message: "期限を守れなかったのでだるま落としに失敗しました。。。", preferredStyle: .alert)
+            let dialog = UIAlertController(title: "失敗", message: "期限を守れなかったので\nだるま落としに失敗しました。。。", preferredStyle: .alert)
             dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
                 self.db.collection("users").document(currentUser!.uid).updateData(["currentDaruma": 0]){ err in
                         if let err = err { // エラーハンドリング
@@ -263,9 +273,28 @@ class ShowTodoViewController: UIViewController {
                                 self.present(dialog, animated: true, completion: nil)
                             }
                         }
+                        self.playSE(fileName: "collapse")
                     }
                 }
             }
+        }
+    }
+    
+    func playSE(fileName: String) {
+        
+        // サウンドの初期化
+        guard let soundFilePath = Bundle.main.path(forResource: fileName, ofType: "mp3") else {
+            
+            assert(false, "ファイル名が間違っているので、読み込めません")
+        }
+        let fileURL = URL(fileURLWithPath: soundFilePath)
+        
+        do {
+            seAudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+            seAudioPlayer?.prepareToPlay()
+            seAudioPlayer?.play()
+        } catch let error {
+            assert(false, "サウンドの設定中にエラーが発生しました (\(error.localizedDescription))")
         }
     }
     
@@ -273,7 +302,7 @@ class ShowTodoViewController: UIViewController {
         if currentDaruma == 0{
             animationView = AnimationView(name: "lf20_2lsutk8e")
         }else if currentDaruma == 1{
-            animationView = AnimationView(name: "f20_n51mt8di")
+            animationView = AnimationView(name: "lf20_n51mt8di")
         }else if currentDaruma == 2{
             animationView = AnimationView(name: "lf20_wotrgcan")
         }else if currentDaruma == 3{
@@ -299,7 +328,6 @@ class ShowTodoViewController: UIViewController {
         
         animationView.contentMode = .scaleAspectFit
         view.addSubview(animationView)
-        animationView.play()
     }
     
     @objc func tapped() {
@@ -317,6 +345,9 @@ class ShowTodoViewController: UIViewController {
             }
         }
        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.playSE(fileName: "knock")
+        }
     }
     
 }

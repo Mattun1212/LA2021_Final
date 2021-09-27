@@ -32,7 +32,7 @@ class SignUpViewController: UIViewController{
         signUp.delegate = self
         
         passwordTextField.isSecureTextEntry = true
-        
+        RegisterButton.layer.cornerRadius = 12
         RegisterButton.isEnabled = false
     }
     

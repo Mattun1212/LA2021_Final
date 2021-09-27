@@ -284,9 +284,10 @@ class ShowTodoViewController: UIViewController {
         
         // サウンドの初期化
         guard let soundFilePath = Bundle.main.path(forResource: fileName, ofType: "mp3") else {
-            
             assert(false, "ファイル名が間違っているので、読み込めません")
+            return
         }
+        
         let fileURL = URL(fileURLWithPath: soundFilePath)
         
         do {

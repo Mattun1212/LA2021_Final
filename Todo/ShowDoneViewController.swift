@@ -67,7 +67,11 @@ class ShowDoneViewController: UIViewController {
             listener?.remove()
     }
     
-    func deleteTodo(id: String){
+    
+    @IBAction func deleteTodo(_ sender: UICollectionViewCell){
+        
+        let id = self.dataArray[sender.tag].id!
+
         let dialog = UIAlertController(title: "削除", message: "本当に削除しますか？", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
             self.db.collection("users").document(currentUser!.uid).collection("dones").document(id).delete() { err in
@@ -82,28 +86,6 @@ class ShowDoneViewController: UIViewController {
         dialog.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
         
         present(dialog, animated: true, completion: nil)
-    }
-    
-    @IBAction func handleAction(_ sender: UICollectionViewCell){
-         let actionSheet = UIAlertController(title: "Menu", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        
-         let action1 = UIAlertAction(title: "削除する", style: UIAlertAction.Style.destructive, handler: {
-             (action: UIAlertAction!) in
-             let cellId = self.dataArray[sender.tag].id
-             self.deleteTodo(id: cellId!)
-         })
-
-         actionSheet.addAction(action1)
-         actionSheet.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
-        
-         if UIDevice.current.userInterfaceIdiom == .pad {
-            actionSheet.popoverPresentationController?.sourceView = self.view
-            let screenSize = UIScreen.main.bounds
-            actionSheet.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width / 2,y: screenSize.size.height,width: 0,height: 0)
-         }
-        
-         self.present(actionSheet, animated: true, completion: nil)
-         
      }
 
 }

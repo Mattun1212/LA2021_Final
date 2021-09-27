@@ -26,10 +26,13 @@
 		46A4BFAA26F37D8700B42C77 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFA926F37D8700B42C77 /* Alert.swift */; };
 		46A4BFAD26F380D500B42C77 /* SetObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BFAC26F380D500B42C77 /* SetObject.swift */; };
 		46A4C02026F6413900B42C77 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4C01F26F6413900B42C77 /* MypageViewController.swift */; };
-		46A4C02326F7641C00B42C77 /* UserDeleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4C02226F7641C00B42C77 /* UserDeleteViewController.swift */; };
 		46A4C05326F810B500B42C77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4C05226F810B500B42C77 /* ViewController.swift */; };
 		46A4C05726F8111500B42C77 /* ShowDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4C05626F8111500B42C77 /* ShowDoneViewController.swift */; };
 		46A4C05A26F8147800B42C77 /* EditDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4C05926F8147800B42C77 /* EditDoneViewController.swift */; };
+		46BC5FEB27023A4F00F5361A /* Harenosora.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46BC5FEA27023A4F00F5361A /* Harenosora.otf */; };
+		46BC5FEF27024A5800F5361A /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BC5FEE27024A5800F5361A /* TabbarViewController.swift */; };
+		46BC5FF227024C5900F5361A /* UIColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BC5FF127024C5900F5361A /* UIColorHex.swift */; };
+		46BC5FF627024FC700F5361A /* 7637-tap-click.json in Resources */ = {isa = PBXBuildFile; fileRef = 46BC5FF527024FC700F5361A /* 7637-tap-click.json */; };
 		46CA5BFF270073AE00661116 /* left2.png in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5BF5270073AD00661116 /* left2.png */; };
 		46CA5C00270073AE00661116 /* left3.png in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5BF6270073AD00661116 /* left3.png */; };
 		46CA5C01270073AE00661116 /* ゲーム.png in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5BF7270073AD00661116 /* ゲーム.png */; };
@@ -65,10 +68,13 @@
 		46A4BFA926F37D8700B42C77 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		46A4BFAC26F380D500B42C77 /* SetObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObject.swift; sourceTree = "<group>"; };
 		46A4C01F26F6413900B42C77 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
-		46A4C02226F7641C00B42C77 /* UserDeleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDeleteViewController.swift; sourceTree = "<group>"; };
 		46A4C05226F810B500B42C77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		46A4C05626F8111500B42C77 /* ShowDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDoneViewController.swift; sourceTree = "<group>"; };
 		46A4C05926F8147800B42C77 /* EditDoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDoneViewController.swift; sourceTree = "<group>"; };
+		46BC5FEA27023A4F00F5361A /* Harenosora.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Harenosora.otf; sourceTree = "<group>"; };
+		46BC5FEE27024A5800F5361A /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		46BC5FF127024C5900F5361A /* UIColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHex.swift; sourceTree = "<group>"; };
+		46BC5FF527024FC700F5361A /* 7637-tap-click.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "7637-tap-click.json"; sourceTree = "<group>"; };
 		46CA5BF5270073AD00661116 /* left2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left2.png; sourceTree = "<group>"; };
 		46CA5BF6270073AD00661116 /* left3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left3.png; sourceTree = "<group>"; };
 		46CA5BF7270073AD00661116 /* ゲーム.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ゲーム.png"; sourceTree = "<group>"; };
@@ -118,6 +124,7 @@
 		46A4BF5626F36F2B00B42C77 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				46BC5FE927023A3C00F5361A /* fonts */,
 				464B7D5B2701F0F300CFDC22 /* Todo.entitlements */,
 				46CA5BF3270073AD00661116 /* Todo_Resource */,
 				46A4BF5726F36F2B00B42C77 /* AppDelegate.swift */,
@@ -130,6 +137,7 @@
 				461D4C9E26FE0AB80072E4F3 /* lf20_2lsutk8e.json */,
 				461D4C9F26FE0AB90072E4F3 /* lf20_f3rgysv8.json */,
 				46CA5C1A2700AD8E00661116 /* GoogleService-Info.plist */,
+				46BC5FF527024FC700F5361A /* 7637-tap-click.json */,
 				461D4C9D26FE0AB70072E4F3 /* lf20_fkse2kbw.json */,
 				461D4C9B26FE0AB50072E4F3 /* lf20_n51mt8di.json */,
 				461D4C9C26FE0AB60072E4F3 /* lf20_wotrgcan.json */,
@@ -140,11 +148,20 @@
 				46A4BFA926F37D8700B42C77 /* Alert.swift */,
 				46A4BFAC26F380D500B42C77 /* SetObject.swift */,
 				46A4C01F26F6413900B42C77 /* MypageViewController.swift */,
-				46A4C02226F7641C00B42C77 /* UserDeleteViewController.swift */,
 				46A4C05626F8111500B42C77 /* ShowDoneViewController.swift */,
 				46A4C05926F8147800B42C77 /* EditDoneViewController.swift */,
+				46BC5FEE27024A5800F5361A /* TabbarViewController.swift */,
+				46BC5FF127024C5900F5361A /* UIColorHex.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		46BC5FE927023A3C00F5361A /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				46BC5FEA27023A4F00F5361A /* Harenosora.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		46CA5BF3270073AD00661116 /* Todo_Resource */ = {
@@ -265,6 +282,8 @@
 			files = (
 				461D4CA426FE0AB90072E4F3 /* lf20_f3rgysv8.json in Resources */,
 				46CA5C07270073AE00661116 /* collapse.mp3 in Resources */,
+				46BC5FEB27023A4F00F5361A /* Harenosora.otf in Resources */,
+				46BC5FF627024FC700F5361A /* 7637-tap-click.json in Resources */,
 				46CA5C03270073AE00661116 /* left4.png in Resources */,
 				46A4BF6426F36F2D00B42C77 /* LaunchScreen.storyboard in Resources */,
 				46CA5C02270073AE00661116 /* left1.png in Resources */,
@@ -336,12 +355,13 @@
 				46A4BFAA26F37D8700B42C77 /* Alert.swift in Sources */,
 				46A4BFA426F3780300B42C77 /* EditTodoViewController.swift in Sources */,
 				46A4BF5826F36F2B00B42C77 /* AppDelegate.swift in Sources */,
+				46BC5FEF27024A5800F5361A /* TabbarViewController.swift in Sources */,
 				46A4BF9C26F377D800B42C77 /* SignUpViewController.swift in Sources */,
 				46A4C05A26F8147800B42C77 /* EditDoneViewController.swift in Sources */,
 				46A4BFA726F3781000B42C77 /* AddTodoViewController.swift in Sources */,
 				46A4C05726F8111500B42C77 /* ShowDoneViewController.swift in Sources */,
-				46A4C02326F7641C00B42C77 /* UserDeleteViewController.swift in Sources */,
 				46A4BF5A26F36F2B00B42C77 /* SceneDelegate.swift in Sources */,
+				46BC5FF227024C5900F5361A /* UIColorHex.swift in Sources */,
 				46A4C05326F810B500B42C77 /* ViewController.swift in Sources */,
 				46A4BFA126F377F700B42C77 /* ShowTodoViewController.swift in Sources */,
 				46A4BFAD26F380D500B42C77 /* SetObject.swift in Sources */,

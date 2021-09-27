@@ -27,6 +27,12 @@ class MypageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "HarenosoraMincho", size: 22)!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        UITabBarItemAppearance().selected.iconColor = UIColor(hex: "6D7CD1")
+        UITabBarItemAppearance().selected.titleTextAttributes = [.foregroundColor: UIColor(hex: "6D7CD1")]
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {

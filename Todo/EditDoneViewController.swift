@@ -21,6 +21,10 @@ class EditDoneViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "HarenosoraMincho", size: 22)!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        
         titleLabel.text = Data?.title
         tagLabel.text = Data?.tag
         finishDateLabel.text = Data?.date

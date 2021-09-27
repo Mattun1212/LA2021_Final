@@ -26,6 +26,8 @@ class EditTodoViewController: UITableViewController,UITextViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "HarenosoraMincho", size: 22)!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        
         detailTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         detailTextView.layer.borderWidth = 1.0
         detailTextView.layer.cornerRadius = 1.0

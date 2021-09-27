@@ -24,6 +24,11 @@ class ShowDoneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "HarenosoraMincho", size: 22)!, NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+//        UITabBarItemAppearance().selected.iconColor = UIColor(hex: "C0E2A1")
+//        UITabBarItemAppearance().selected.titleTextAttributes = [.foregroundColor: UIColor(hex: "C0E2A1")]
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         let layout = UICollectionViewFlowLayout()

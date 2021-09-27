@@ -109,7 +109,7 @@ class ShowTodoViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         let date = formatter.string(from: Date())
         
-        let dialog = UIAlertController(title: "完了する", message: "感想を書いて完了させる" + "\n\n\n\n\n\n\n", preferredStyle: .alert)
+        let dialog = UIAlertController(title: "完了する", message: "感想を書いて完了させる" + "\n\n\n\n", preferredStyle: .alert)
         
         let textView = UITextView()
         textView.layer.borderColor = UIColor.lightGray.cgColor
@@ -189,7 +189,7 @@ class ShowTodoViewController: UIViewController {
                                 if let err = err { // エラーハンドリング
                                     print("Error updating document: \(err)")
                                 } else { // 書き換え成功ハンドリング
-                                    let dialog = UIAlertController(title: "だるま落とし失敗", message: "だるま落としが最初からやり直しになりました。。。", preferredStyle: .alert)
+                                    let dialog = UIAlertController(title: "だるま落とし失敗", message: "だるま落としが\n最初からやり直しになりました。。。", preferredStyle: .alert)
                                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                                     collapseAnimationView()
                                     animationView.play { finished in
@@ -396,5 +396,9 @@ extension ShowTodoViewController: UITextViewDelegate {
     func textViewDidChangeSelection(_ textView: UITextView) {
         feeling = textView.text
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }

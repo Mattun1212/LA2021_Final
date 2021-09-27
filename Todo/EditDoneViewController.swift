@@ -48,3 +48,9 @@ class EditDoneViewController: UITableViewController {
     }
 
 }
+
+extension EditDoneViewController: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}

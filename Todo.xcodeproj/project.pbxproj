@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		461D4C8326FE09820072E4F3 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 461D4C8226FE09820072E4F3 /* Lottie */; };
 		461D4CA026FE0AB90072E4F3 /* lf20_n51mt8di.json in Resources */ = {isa = PBXBuildFile; fileRef = 461D4C9B26FE0AB50072E4F3 /* lf20_n51mt8di.json */; };
 		461D4CA126FE0AB90072E4F3 /* lf20_wotrgcan.json in Resources */ = {isa = PBXBuildFile; fileRef = 461D4C9C26FE0AB60072E4F3 /* lf20_wotrgcan.json */; };
 		461D4CA226FE0AB90072E4F3 /* lf20_fkse2kbw.json in Resources */ = {isa = PBXBuildFile; fileRef = 461D4C9D26FE0AB70072E4F3 /* lf20_fkse2kbw.json */; };
 		461D4CA326FE0AB90072E4F3 /* lf20_2lsutk8e.json in Resources */ = {isa = PBXBuildFile; fileRef = 461D4C9E26FE0AB80072E4F3 /* lf20_2lsutk8e.json */; };
 		461D4CA426FE0AB90072E4F3 /* lf20_f3rgysv8.json in Resources */ = {isa = PBXBuildFile; fileRef = 461D4C9F26FE0AB90072E4F3 /* lf20_f3rgysv8.json */; };
-		464E3DA426FCAF3600D4CF76 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 464E3DA326FCAF3600D4CF76 /* SnapKit */; };
 		46A4BF5826F36F2B00B42C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BF5726F36F2B00B42C77 /* AppDelegate.swift */; };
 		46A4BF5A26F36F2B00B42C77 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A4BF5926F36F2B00B42C77 /* SceneDelegate.swift */; };
 		46A4BF5F26F36F2B00B42C77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A4BF5D26F36F2B00B42C77 /* Main.storyboard */; };
@@ -43,6 +41,8 @@
 		46CA5C06270073AE00661116 /* knock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5BFD270073AD00661116 /* knock.mp3 */; };
 		46CA5C07270073AE00661116 /* collapse.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5BFE270073AD00661116 /* collapse.mp3 */; };
 		46CA5C1B2700AD8F00661116 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46CA5C1A2700AD8E00661116 /* GoogleService-Info.plist */; };
+		46CAA897270359A300D958A6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 46CAA896270359A300D958A6 /* Lottie */; };
+		46CAA89B270359D500D958A6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 46CAA89A270359D500D958A6 /* SnapKit */; };
 		F899E113F2D10EC921C6E05C /* Pods_Todo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7845387807511585ED247439 /* Pods_Todo.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,9 +94,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46CAA89B270359D500D958A6 /* SnapKit in Frameworks */,
 				F899E113F2D10EC921C6E05C /* Pods_Todo.framework in Frameworks */,
-				464E3DA426FCAF3600D4CF76 /* SnapKit in Frameworks */,
-				461D4C8326FE09820072E4F3 /* Lottie in Frameworks */,
+				46CAA897270359A300D958A6 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,8 +232,8 @@
 			);
 			name = Todo;
 			packageProductDependencies = (
-				464E3DA326FCAF3600D4CF76 /* SnapKit */,
-				461D4C8226FE09820072E4F3 /* Lottie */,
+				46CAA896270359A300D958A6 /* Lottie */,
+				46CAA89A270359D500D958A6 /* SnapKit */,
 			);
 			productName = Todo;
 			productReference = 46A4BF5426F36F2B00B42C77 /* Todo.app */;
@@ -263,8 +263,8 @@
 			);
 			mainGroup = 46A4BF4B26F36F2B00B42C77;
 			packageReferences = (
-				464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				461D4C8126FE09820072E4F3 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				46CAA895270359A300D958A6 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				46CAA899270359D400D958A6 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 46A4BF5526F36F2B00B42C77 /* Products */;
 			projectDirPath = "";
@@ -585,7 +585,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		461D4C8126FE09820072E4F3 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		46CAA895270359A300D958A6 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
@@ -593,7 +593,7 @@
 				minimumVersion = 3.2.3;
 			};
 		};
-		464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		46CAA899270359D400D958A6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
@@ -604,14 +604,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		461D4C8226FE09820072E4F3 /* Lottie */ = {
+		46CAA896270359A300D958A6 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 461D4C8126FE09820072E4F3 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = 46CAA895270359A300D958A6 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
-		464E3DA326FCAF3600D4CF76 /* SnapKit */ = {
+		46CAA89A270359D500D958A6 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 464E3DA226FCAF3600D4CF76 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 46CAA899270359D400D958A6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */

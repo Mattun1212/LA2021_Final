@@ -113,32 +113,16 @@ class ShowTodoViewController: UIViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         let date = formatter.string(from: Date())
         
-        let dialog = UIAlertController(title: "完了する", message: "感想を書いて完了させる" + "\n\n\n\n", preferredStyle: .alert)
+        let dialog = UIAlertController(title: "完了する", message: "感想を書いて完了させる", preferredStyle: .alert)
         
-        let textView = UITextView()
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.layer.borderWidth = 0.5
-        textView.layer.cornerRadius = 6
-        textView.delegate = self
-        // textView を追加して Constraints を追加
-        dialog.view.addSubview(textView)
+        dialog.addTextField(configurationHandler: {(textField) -> Void in
+            textField.delegate = self
+        })
         
-        textView.snp.makeConstraints { make in
-            make.top.equalTo(75)
-            make.left.equalTo(10)
-            make.right.equalTo(-10)
-            make.bottom.equalTo(-60)
-        }
-
-        // 画面が開いたあとでないと textView にフォーカスが当たらないため、遅らせて実行する
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            textView.becomeFirstResponder()
-        }
         
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
-            let feelingText = textView.text
-         if feelingText != "" {
-            self.db.collection("users").document(currentUser!.uid).collection("dones").document(data.id!).setData(["title": data.title!, "tag": data.tag!, "feeling": feelingText!, "date": date]) { [self] err in
+         if feeling != "" {
+            self.db.collection("users").document(currentUser!.uid).collection("dones").document(data.id!).setData(["title": data.title!, "tag": data.tag!, "feeling": feeling!, "date": date]) { [self] err in
                 if let err = err { // エラーハンドリング
                     let dialog = UIAlertController(title: "doneデータ登録失敗", message: err.localizedDescription, preferredStyle: .alert)
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -406,10 +390,11 @@ extension ShowTodoViewController:UICollectionViewDataSource{
         }
 }
 
-extension ShowTodoViewController: UITextViewDelegate {
+
+extension ShowTodoViewController: UITextFieldDelegate {
     
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        feeling = textView.text
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        feeling = textField.text
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

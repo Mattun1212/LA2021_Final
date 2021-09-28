@@ -897,7 +897,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zn1-d5-JS9">
-                                <rect key="frame" x="20" y="113" width="60" height="30"/>
+                                <rect key="frame" x="20" y="113" width="374" height="30"/>
                                 <fontDescription key="fontDescription" name="HarenosoraMincho" family="HarenosoraMincho" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -924,46 +924,51 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Fat-nM-nYs">
-                                <rect key="frame" x="157" y="203" width="150" height="5"/>
+                                <rect key="frame" x="157" y="195" width="150" height="5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="2Np-cG-Hw3"/>
                                     <constraint firstAttribute="width" constant="150" id="HAn-Lf-pl2"/>
                                 </constraints>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次のランクまで" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbg-zT-3Zn">
-                                <rect key="frame" x="157" y="189" width="84" height="12"/>
+                                <rect key="frame" x="157" y="181" width="84" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="84" id="bMY-0f-r1O"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HarenosoraMincho" family="HarenosoraMincho" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tpW-K6-xk9">
+                                <rect key="frame" x="0.0" y="260" width="414" height="503"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="あとn回" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHE-pL-Hry">
-                                <rect key="frame" x="312" y="195" width="62" height="17"/>
+                                <rect key="frame" x="246" y="176" width="62" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="62" id="blT-3x-C9y"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HarenosoraMincho" family="HarenosoraMincho" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tpW-K6-xk9">
-                                <rect key="frame" x="0.0" y="260" width="100" height="503"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0Dj-T8-Nyp"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0Dj-T8-Nyp" firstAttribute="trailing" secondItem="zn1-d5-JS9" secondAttribute="trailing" constant="20" id="1fS-LY-6cG"/>
-                            <constraint firstItem="gHE-pL-Hry" firstAttribute="leading" secondItem="Fat-nM-nYs" secondAttribute="trailing" constant="5" id="2j1-WQ-q3A"/>
                             <constraint firstItem="ZmM-29-fL6" firstAttribute="leading" secondItem="0Dj-T8-Nyp" secondAttribute="leading" constant="20" id="9eJ-pL-CQk"/>
                             <constraint firstItem="tpW-K6-xk9" firstAttribute="top" secondItem="ZmM-29-fL6" secondAttribute="bottom" constant="22" id="9lY-Qo-5dD"/>
-                            <constraint firstItem="Fat-nM-nYs" firstAttribute="centerX" secondItem="v2m-hU-exa" secondAttribute="centerX" id="BKF-c2-wzg"/>
-                            <constraint firstItem="gHE-pL-Hry" firstAttribute="top" secondItem="zn1-d5-JS9" secondAttribute="bottom" constant="52" id="GpJ-cj-b9a"/>
                             <constraint firstItem="0Dj-T8-Nyp" firstAttribute="bottom" secondItem="tpW-K6-xk9" secondAttribute="bottom" constant="50" id="V9a-Vy-nIg"/>
                             <constraint firstItem="DFs-rk-QgF" firstAttribute="leading" secondItem="0Dj-T8-Nyp" secondAttribute="leading" constant="20" id="WjU-h3-BmX"/>
                             <constraint firstItem="wbg-zT-3Zn" firstAttribute="leading" secondItem="dhc-0P-Nbb" secondAttribute="trailing" constant="55" id="Wpg-aM-ZIj"/>
                             <constraint firstItem="Fat-nM-nYs" firstAttribute="leading" secondItem="dhc-0P-Nbb" secondAttribute="trailing" constant="55" id="X2X-nG-d7P"/>
-                            <constraint firstItem="Fat-nM-nYs" firstAttribute="top" secondItem="zn1-d5-JS9" secondAttribute="bottom" constant="60" id="X98-7P-q8i"/>
+                            <constraint firstItem="Fat-nM-nYs" firstAttribute="top" secondItem="zn1-d5-JS9" secondAttribute="bottom" constant="52" id="X98-7P-q8i"/>
                             <constraint firstItem="dhc-0P-Nbb" firstAttribute="leading" secondItem="0Dj-T8-Nyp" secondAttribute="leading" constant="52" id="YJH-cH-vob"/>
                             <constraint firstItem="zn1-d5-JS9" firstAttribute="top" secondItem="0Dj-T8-Nyp" secondAttribute="top" constant="25" id="azs-0d-cAx"/>
                             <constraint firstItem="ZmM-29-fL6" firstAttribute="top" secondItem="dhc-0P-Nbb" secondAttribute="bottom" constant="5" id="e4g-hs-Jvw"/>
                             <constraint firstItem="zn1-d5-JS9" firstAttribute="leading" secondItem="0Dj-T8-Nyp" secondAttribute="leading" constant="20" id="gkq-IG-Edn"/>
+                            <constraint firstItem="gHE-pL-Hry" firstAttribute="bottom" secondItem="wbg-zT-3Zn" secondAttribute="bottom" id="h0J-Af-N38"/>
+                            <constraint firstItem="gHE-pL-Hry" firstAttribute="leading" secondItem="wbg-zT-3Zn" secondAttribute="trailing" constant="5" id="hTN-II-rfR"/>
                             <constraint firstItem="DFs-rk-QgF" firstAttribute="top" secondItem="zn1-d5-JS9" secondAttribute="bottom" constant="20" id="oEO-X5-B68"/>
                             <constraint firstItem="dhc-0P-Nbb" firstAttribute="top" secondItem="DFs-rk-QgF" secondAttribute="bottom" id="vYm-V7-WJy"/>
                             <constraint firstAttribute="trailing" secondItem="tpW-K6-xk9" secondAttribute="trailing" id="wsf-c3-ZTm"/>

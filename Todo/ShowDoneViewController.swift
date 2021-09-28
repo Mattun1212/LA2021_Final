@@ -76,10 +76,10 @@ class ShowDoneViewController: UIViewController {
     
     @objc func getIndex(sender:UIButton){
         currentIndex = Int(sender.currentTitle!)
-        deleteTodo()
+        deleteDone()
     }
     
-    func deleteTodo(){
+    func deleteDone(){
         let id = self.dataArray[currentIndex!].id!
         let dialog = UIAlertController(title: "削除", message: "本当に削除しますか？", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in

@@ -45,6 +45,13 @@ class SignUpViewController: UIViewController{
        
     }
     
+    @IBAction func terms(_ sender: Any) {
+            let url = URL(string: "https://dullmanager.flycricket.io/privacy.html")!
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+        }
+    }
+    
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!

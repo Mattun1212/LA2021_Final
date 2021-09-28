@@ -25,6 +25,7 @@ class ShowTodoViewController: UIViewController {
     var successTimes: Int!
     var currentDaruma: Int!
     var feeling:String!
+    var currentIndex: Int!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -95,6 +96,7 @@ class ShowTodoViewController: UIViewController {
         super.viewWillDisappear(animated)
         listener1?.remove()
         listener2?.remove()
+        
     }
     
     func setDaruma(){
@@ -214,19 +216,24 @@ class ShowTodoViewController: UIViewController {
         present(dialog, animated: true, completion: nil)
     }
     
+    @objc func getIndex(sender:UIButton){
+        currentIndex = Int(sender.currentTitle!)
+        handleAction()
+    }
     
-   @IBAction func handleAction(_ sender: UICollectionViewCell){
+    func handleAction(){
+  
         let actionSheet = UIAlertController(title: "Menu", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
     
         let action1 = UIAlertAction(title: "完了する", style: UIAlertAction.Style.default, handler: {
             (action: UIAlertAction!) in
-            let data = self.dataArray[sender.tag]
+            let data = self.dataArray[self.currentIndex]
             self.done(data: data)
         })
        
-        let action2 = UIAlertAction(title: "削除する", style: UIAlertAction.Style.destructive, handler: {
+    let action2 = UIAlertAction(title: "削除する", style: UIAlertAction.Style.destructive, handler: {
             (action: UIAlertAction!) in
-            let cellId = self.dataArray[sender.tag].id
+        let cellId = self.dataArray[self.currentIndex].id
             self.deleteTodo(id: cellId!)
         })
 
@@ -353,9 +360,13 @@ class ShowTodoViewController: UIViewController {
         }
     }
     
+    
+    
+    
 }
 
 extension ShowTodoViewController:UICollectionViewDelegate{
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEdit" {
             let Edit = segue.destination as! EditTodoViewController
@@ -383,8 +394,10 @@ extension ShowTodoViewController:UICollectionViewDataSource{
             let label1 = cell.contentView.viewWithTag(1) as! UILabel
             let label2 = cell.contentView.viewWithTag(2) as! UILabel
             let icon = cell.contentView.viewWithTag(3) as! UIImageView
-            cell.tag = indexPath.row + 1
-            label1.text = self.dataArray[indexPath.row].title
+            let button = cell.contentView.viewWithTag(4) as! UIButton
+            button.setTitle("\(indexPath.row)", for: .normal)
+            button.addTarget(self, action: #selector(getIndex(sender:)), for: .touchUpInside)
+            label1.text = self.dataArray[indexPath.row].title ?? ""
             let arr:[String] = self.dataArray[indexPath.row].timelimit!.components(separatedBy: "-")
             label2.text = "\(arr[1])/\(arr[2])まで"
             icon.image = UIImage(named: self.dataArray[indexPath.row].tag!)

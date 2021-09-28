@@ -210,6 +210,47 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98r-xf-iIX">
+                                <rect key="frame" x="59" y="595" width="296" height="21"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ご利用いただくには" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2h-vv-KGc">
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="hQE-zC-1tz"/>
+                                            <constraint firstAttribute="width" constant="65" id="lfZ-Bk-eYw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0A-qB-6oC">
+                                        <rect key="frame" x="65" y="0.0" width="109" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="D1t-he-Gnp"/>
+                                            <constraint firstAttribute="width" constant="109" id="PUZ-az-p0c"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                        <state key="normal" title="利用規約・プライバシーポリシー"/>
+                                        <connections>
+                                            <action selector="terms:" destination="Mbk-CY-Jv0" eventType="touchUpInside" id="Zl1-vC-TND"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="に同意していただく必要があります。" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB4-FA-iYn">
+                                        <rect key="frame" x="174" y="0.0" width="122" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="121.8" id="3vM-5P-Xgd"/>
+                                            <constraint firstAttribute="height" constant="21" id="rbA-69-49d"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="A0A-qB-6oC" firstAttribute="leading" secondItem="d2h-vv-KGc" secondAttribute="trailing" id="D98-tG-7yt"/>
+                                    <constraint firstItem="wB4-FA-iYn" firstAttribute="leading" secondItem="A0A-qB-6oC" secondAttribute="trailing" id="RbQ-hh-OiM"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ECh-qk-m7w"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
@@ -218,6 +259,8 @@
                             <constraint firstItem="uSp-cT-iFk" firstAttribute="centerX" secondItem="eIG-zh-FpE" secondAttribute="centerX" id="1wL-6Y-aqa"/>
                             <constraint firstItem="y3s-UN-dP2" firstAttribute="top" secondItem="eIG-zh-FpE" secondAttribute="topMargin" constant="50" id="8gW-R1-1di"/>
                             <constraint firstItem="eWb-Ki-s4X" firstAttribute="centerX" secondItem="eIG-zh-FpE" secondAttribute="centerX" constant="43.5" id="Gbr-ap-w0t"/>
+                            <constraint firstItem="98r-xf-iIX" firstAttribute="top" secondItem="uSp-cT-iFk" secondAttribute="bottom" constant="15" id="OiE-LY-4zd"/>
+                            <constraint firstItem="98r-xf-iIX" firstAttribute="centerX" secondItem="eIG-zh-FpE" secondAttribute="centerX" id="PI9-tn-qv1"/>
                             <constraint firstItem="uSp-cT-iFk" firstAttribute="top" secondItem="y3s-UN-dP2" secondAttribute="bottom" constant="5" id="UE0-9L-NVC"/>
                             <constraint firstItem="uSp-cT-iFk" firstAttribute="leading" secondItem="ECh-qk-m7w" secondAttribute="leading" constant="50" id="Udj-Ks-Jo7"/>
                             <constraint firstItem="eWb-Ki-s4X" firstAttribute="centerY" secondItem="y3s-UN-dP2" secondAttribute="centerY" id="bEx-bi-u0q"/>
@@ -235,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iar-qI-vJC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="642" y="1055"/>
+            <point key="canvasLocation" x="640.57971014492762" y="1054.6875"/>
         </scene>
         <!--積みリスト-->
         <scene sceneID="Npu-k6-N8Q">
@@ -283,7 +326,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cr-fa-dYk">
+                                                <button opaque="NO" tag="4" contentMode="scaleToFill" restorationIdentifier="Menu" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cr-fa-dYk">
                                                     <rect key="frame" x="100" y="106" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="bgx-rD-y5O"/>
@@ -292,9 +335,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="tintColor" systemColor="linkColor"/>
                                                     <state key="normal" image="ellipsis" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="handleAction:" destination="9eC-XM-ei2" eventType="touchUpInside" id="auT-cN-Rch"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -744,7 +784,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1kN-44-Rgc">
+                                                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1kN-44-Rgc">
                                                     <rect key="frame" x="100" y="106" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="dWp-5O-g4p"/>
@@ -755,9 +795,6 @@
                                                     <state key="normal" image="trash" catalog="system">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="deleteTodo:" destination="WSY-dP-nSH" eventType="touchUpInside" id="0o3-vY-etA"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -1219,7 +1256,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IzQ-Gw-NO0"/>
+        <segue reference="exA-Z7-Bww"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="books.vertical" catalog="system" width="128" height="103"/>

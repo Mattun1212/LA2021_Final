@@ -20,6 +20,8 @@ class ShowDoneViewController: UIViewController {
 
     var Id: DocumentReference?
     
+    var currentIndex: Int!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,11 +74,13 @@ class ShowDoneViewController: UIViewController {
             listener?.remove()
     }
     
+    @objc func getIndex(sender:UIButton){
+        currentIndex = Int(sender.currentTitle!)
+        deleteTodo()
+    }
     
-    @IBAction func deleteTodo(_ sender: UICollectionViewCell){
-        
-        let id = self.dataArray[sender.tag].id!
-
+    func deleteTodo(){
+        let id = self.dataArray[currentIndex!].id!
         let dialog = UIAlertController(title: "削除", message: "本当に削除しますか？", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: { [self] (action) in
             self.db.collection("users").document(currentUser!.uid).collection("dones").document(id).delete() { err in
@@ -112,7 +116,9 @@ extension ShowDoneViewController:UICollectionViewDataSource{
             let label1 = cell.contentView.viewWithTag(1) as! UILabel
             let label2 = cell.contentView.viewWithTag(2) as! UILabel
             let icon = cell.contentView.viewWithTag(3) as! UIImageView
-            cell.tag = indexPath.row + 1
+            let button = cell.contentView.viewWithTag(4) as! UIButton
+            button.setTitle("\(indexPath.row)", for: .normal)
+            button.addTarget(self, action: #selector(getIndex(sender:)), for: .touchUpInside)
             label1.text = self.dataArray[indexPath.row].title
             let date = self.dataArray[indexPath.row].date
             let arr:[String] = date?.components(separatedBy: "-") ?? ["-","-","-"]

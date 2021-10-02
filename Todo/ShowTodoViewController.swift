@@ -96,7 +96,7 @@ class ShowTodoViewController: UIViewController {
         super.viewWillDisappear(animated)
         listener1?.remove()
         listener2?.remove()
-        
+        self.animationView.removeFromSuperview()
     }
     
     func setDaruma(){
@@ -180,9 +180,11 @@ class ShowTodoViewController: UIViewController {
                                     let dialog = UIAlertController(title: "だるま落とし失敗", message: "だるま落としが\n最初からやり直しになりました。。。", preferredStyle: .alert)
                                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                                     collapseAnimationView()
+                                    UIApplication.shared.delegate?.window??.beginIgnoringInteractionEvents()
                                     animationView.play { finished in
                                         if finished {
                                             self.animationView.removeFromSuperview()
+                                            UIApplication.shared.delegate?.window??.endIgnoringInteractionEvents()
                                             present(dialog, animated: true, completion: nil)
                                         }
                                     }
@@ -325,9 +327,11 @@ class ShowTodoViewController: UIViewController {
     }
     
     @objc func tapped() {
+        UIApplication.shared.delegate?.window??.beginIgnoringInteractionEvents()
         animationView.play { [self] finished in
          if finished {
             self.animationView.removeFromSuperview()
+            UIApplication.shared.delegate?.window??.endIgnoringInteractionEvents()
             if currentDaruma == 0 {
                 let dialog = UIAlertController(title: "完了！", message: "だるま落とし成功！！さすがです！！", preferredStyle: .alert)
                 dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -401,4 +405,18 @@ extension ShowTodoViewController: UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
+}
+
+extension UIWindow {
+
+    func beginIgnoringInteractionEvents() {
+        let overlayView = UIView(frame: bounds)
+        overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        overlayView.tag = 10000
+        addSubview(overlayView)
+    }
+
+    func endIgnoringInteractionEvents() {
+        viewWithTag(10000)?.removeFromSuperview()
+    }
 }
